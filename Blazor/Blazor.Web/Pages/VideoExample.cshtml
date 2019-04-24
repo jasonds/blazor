@@ -1,0 +1,30 @@
+﻿@page "/videoexample"
+@inject IJSRuntime JsRuntime;
+
+<h1>Video Example</h1>
+
+<p>This component demonstrates JavaScript interop from Blazor/WASM to a JavaScript file.</p>
+
+<button type="button" class="btn btn-primary" onclick="@OpenVideo">
+    Start Video
+</button>
+
+<button type="button" class="btn btn-primary" onclick="@StopVideo">
+    Stop Video
+</button>
+
+<video></video>
+
+@functions {
+    private bool IsLoading { get; set; } = false;
+
+    private async void OpenVideo()
+    {
+        await JsRuntime.InvokeAsync<Task>("Blazor.VideoExample.Start");
+    }
+
+    private async void StopVideo()
+    {
+        await JsRuntime.InvokeAsync<Task>("Blazor.VideoExample.Stop");
+    }
+}
